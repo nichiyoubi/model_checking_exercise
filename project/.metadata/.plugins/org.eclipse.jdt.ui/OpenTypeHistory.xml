@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=line_tracer/src&lt;line_tracer{DirectionController.java[DirectionController" modifiers="513" timestamp="1462285544000"/>
+<typeInfo handle="=line_tracer/src&lt;line_tracer{Controller.java[Controller" modifiers="513" timestamp="1462112500000"/>
+<typeInfo handle="=line_tracer/src&lt;line_tracer{Wheel.java[Wheel" modifiers="513" timestamp="1462108440000"/>
+<typeInfo handle="=line_tracer/\/Library\/Java\/JavaVirtualMachines\/jdk1.7.0_75.jdk\/Contents\/Home\/jre\/lib\/rt.jar&lt;java.lang(Object.class[Object" modifiers="33" timestamp="1418968825000"/>
+<typeInfo handle="=line_tracer/src&lt;line_tracer{LightSensor.java[LightSensor" modifiers="513" timestamp="1462282268000"/>
+<typeInfo handle="=line_tracer/\/Users\/usamimasanori\/Documents\/leJOS_EV3_0.9.1-beta\/lib\/ev3\/ev3classes.jar&lt;lejos.hardware.sensor(EV3ColorSensor.class[EV3ColorSensor" modifiers="33" timestamp="1447665859000"/>
+</typeInfoHistroy>

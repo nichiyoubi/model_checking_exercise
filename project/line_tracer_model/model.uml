@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_IQYSkA36EeamQZGX1DTVvQ" name="model">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_LKnfAA4OEeamQZGX1DTVvQ">
+    <body>光センサーの値を読み、方向を制御する 制御する仕組みは？ どんな値を？</body>
+  </ownedComment>
+  <packagedElement xmi:type="uml:Class" xmi:id="_MDYDEA36EeamQZGX1DTVvQ" name="LineTracer" visibility="package">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_fLjTMA4NEeamQZGX1DTVvQ" name="controller" type="_Zsu6EA4NEeamQZGX1DTVvQ" association="_fLlIYA4NEeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fLjTMQ4NEeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fLjTMg4NEeamQZGX1DTVvQ" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_pojYMA36EeamQZGX1DTVvQ" name="Actor1"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_qSoP8A36EeamQZGX1DTVvQ" name="UseCase1"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_r3MaAA36EeamQZGX1DTVvQ" name="A_actor1_usecase1" memberEnd="_r3MaAQ36EeamQZGX1DTVvQ _r3MaBA36EeamQZGX1DTVvQ">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_r3MaAQ36EeamQZGX1DTVvQ" name="actor1" type="_pojYMA36EeamQZGX1DTVvQ" association="_r3MaAA36EeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_r3MaAg36EeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_r3MaAw36EeamQZGX1DTVvQ" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_r3MaBA36EeamQZGX1DTVvQ" name="usecase1" type="_qSoP8A36EeamQZGX1DTVvQ" association="_r3MaAA36EeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_r3MaBQ36EeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_r3MaBg36EeamQZGX1DTVvQ" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_QkYOcA4NEeamQZGX1DTVvQ" name="LightSensor"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_X6HF4A4NEeamQZGX1DTVvQ" name="Motor"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Zsu6EA4NEeamQZGX1DTVvQ" name="Controller">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_cVPNYA4NEeamQZGX1DTVvQ" name="lightSensor" type="_QkYOcA4NEeamQZGX1DTVvQ" association="_cVbaoA4NEeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cVPNYQ4NEeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cVPNYg4NEeamQZGX1DTVvQ" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_k29r8A4PEeamQZGX1DTVvQ" name="directionController" type="_sUBv4A4OEeamQZGX1DTVvQ" association="_k2_hIA4PEeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k29r8Q4PEeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k29r8g4PEeamQZGX1DTVvQ" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_cVbaoA4NEeamQZGX1DTVvQ" memberEnd="_cVbaoQ4NEeamQZGX1DTVvQ _cVPNYA4NEeamQZGX1DTVvQ">
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cVbaoQ4NEeamQZGX1DTVvQ" name="controller" type="_Zsu6EA4NEeamQZGX1DTVvQ" association="_cVbaoA4NEeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cVbaog4NEeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cVbaow4NEeamQZGX1DTVvQ" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_dngGgA4NEeamQZGX1DTVvQ" memberEnd="_dngGgQ4NEeamQZGX1DTVvQ _dnffcA4NEeamQZGX1DTVvQ">
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_dngGgQ4NEeamQZGX1DTVvQ" name="directioncontroller" type="_sUBv4A4OEeamQZGX1DTVvQ" association="_dngGgA4NEeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dngGgg4NEeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dngGgw4NEeamQZGX1DTVvQ" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_fLlIYA4NEeamQZGX1DTVvQ" memberEnd="_fLlIYQ4NEeamQZGX1DTVvQ _fLjTMA4NEeamQZGX1DTVvQ">
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_fLlIYQ4NEeamQZGX1DTVvQ" name="lineTracer" type="_MDYDEA36EeamQZGX1DTVvQ" association="_fLlIYA4NEeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fLlIYg4NEeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fLlIYw4NEeamQZGX1DTVvQ" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_sUBv4A4OEeamQZGX1DTVvQ" name="DirectionController">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_dnffcA4NEeamQZGX1DTVvQ" name="motor" type="_X6HF4A4NEeamQZGX1DTVvQ" association="_dngGgA4NEeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dnffcQ4NEeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dnffcg4NEeamQZGX1DTVvQ" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_k2_hIA4PEeamQZGX1DTVvQ" memberEnd="_k2_hIQ4PEeamQZGX1DTVvQ _k29r8A4PEeamQZGX1DTVvQ">
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_k2_hIQ4PEeamQZGX1DTVvQ" name="controller" type="_Zsu6EA4NEeamQZGX1DTVvQ" association="_k2_hIA4PEeamQZGX1DTVvQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k2_hIg4PEeamQZGX1DTVvQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k2_hIw4PEeamQZGX1DTVvQ" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>

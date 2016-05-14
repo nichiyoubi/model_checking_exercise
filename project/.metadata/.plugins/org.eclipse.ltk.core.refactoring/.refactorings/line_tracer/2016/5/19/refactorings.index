@@ -1,0 +1,11 @@
+1462106957173	Rename method 'getMaximumPower'
+1462106970163	Rename method 'getMinimumPower'
+1462106979776	Rename method 'setPower'
+1462106990479	Rename method 'getPower'
+1462110892144	Rename type 'DirectionController'
+1462110919084	Rename type 'DirectionControllerTest'
+1462111767938	Rename field 'leftMotor_'
+1462111777566	Rename local variable 'rightMotor'
+1462111801293	Rename local variable 'leftMotor'
+1462112567502	Delete element
+1462283514498	Delete element

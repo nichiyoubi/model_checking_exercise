@@ -1,0 +1,59 @@
+/**
+ * 
+ */
+package line_tracer;
+
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.port.*;
+import lejos.utility.Delay;
+import lejos.hardware.ev3.*;
+import lejos.hardware.*;
+
+/**
+ * @author usamimasanori
+ *
+ */
+public class LineTracer {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		LCD.drawString("Line Tracer Test.", 0, 2);
+		LightSensorImpl light =  new LightSensorImpl(SensorPort.S2);
+		WheelImpl rightWheel = new WheelImpl(MotorPort.B);
+		WheelImpl leftWheel = new WheelImpl(MotorPort.C);
+		DirectionControllerImpl direction = new DirectionControllerImpl(rightWheel, leftWheel);
+		ControllerOnOff controller = new ControllerOnOff(light, direction);
+		Key enter   = ((EV3)BrickFinder.getLocal()).getKey("Enter");
+		Key left  = ((EV3)BrickFinder.getLocal()).getKey("Left");
+		Key right = ((EV3)BrickFinder.getLocal()).getKey("Right");
+		
+		light.setThreashold(0.08F);
+		
+		for(int i = 0; i < 1200; i++) {
+			Delay.msDelay(100);
+//			controller.execute();
+			Float val = light.getValue();
+			LCD.drawString(String.valueOf(val), 0, 3);
+// 			if (left.isDown()) {
+			if (val > 0.08F) {
+ 				direction.setDirection(100);
+				LCD.drawString("LEFT", 0, 4);
+			}
+//			else if (right.isDown()) {
+			else if (val < 0.08F) {
+				direction.setDirection(-100);
+				LCD.drawString("RIGHT", 0, 4);
+			}
+			else {
+				direction.setDirection(0);
+				LCD.drawString("     ", 0, 4);
+			}
+			if (enter.isDown()) {
+				direction.stop();
+				System.exit(0);
+			}
+		}
+	}
+}

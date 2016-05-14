@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pref:Preferences xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:pref="http://www.eclipse.org/papryus/properties/preferences" version="2">
+  <contexts name="Customization plug-in"/>
+  <contexts name="Customization"/>
+  <contexts name="PapyrusDSMLValidationRule"/>
+  <contexts name="CSS"/>
+  <contexts name="style"/>
+  <contexts name="notation"/>
+  <contexts name="nattable"/>
+  <contexts name="RichText" prototype="//@contexts.8"/>
+  <contexts name="UML"/>
+  <contexts name="layers"/>
+  <contexts name="MARTE"/>
+  <contexts name="RSAToPapyrusParameters"/>
+  <contexts name="SysML"/>
+  <contexts name="SequenceNotation"/>
+  <contexts name="Symbols"/>
+  <contexts name="UMLNotation"/>
+  <contexts name="UMLRealTime"/>
+</pref:Preferences>
