@@ -6,8 +6,6 @@ package line_tracer;
 import java.io.*;
 import java.net.*;
 
-import lejos.hardware.lcd.LCD;
-
 /**
  * @author usamimasanori
  *

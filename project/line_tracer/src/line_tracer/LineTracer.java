@@ -8,8 +8,6 @@ import lejos.hardware.port.*;
 import lejos.utility.Delay;
 import lejos.hardware.ev3.*;
 import lejos.hardware.*;
-import java.net.*;
-import java.io.*;
 
 /**
  * @author usamimasanori
@@ -22,6 +20,15 @@ public class LineTracer {
 	 */
 	public static void main(String[] args) {
 		LCD.drawString("Line Tracer Test.", 0, 2);
+
+		Server server = new Server();
+		Thread thread = new Thread(server);
+		thread.start();
+
+		trace();
+	}
+	
+	public static void trace() {
 		LightSensorImpl light =  new LightSensorImpl(SensorPort.S2);
 		WheelImpl rightWheel = new WheelImpl(MotorPort.B);
 		WheelImpl leftWheel = new WheelImpl(MotorPort.C);
@@ -31,15 +38,15 @@ public class LineTracer {
 		
 		light.setThreashold(0.3F);
 		
-		Server server = new Server();
-		Thread thread = new Thread(server);
-		thread.start();
+		while(enter.isUp()) {
+			Delay.msDelay(100);
+		}
 		
 		for(int i = 0; i < 1200; i++) {
 			Delay.msDelay(100);
 			controller.execute();
 			Float val = light.getValue();
-			LCD.drawString(String.valueOf(val), 0, 3);
+			LCD.drawString("light=" + String.valueOf(val), 0, 3);
 			if (enter.isDown()) {
 				direction.stop();
 				System.exit(0);
