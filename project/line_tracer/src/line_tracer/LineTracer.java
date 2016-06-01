@@ -8,6 +8,8 @@ import lejos.hardware.port.*;
 import lejos.utility.Delay;
 import lejos.hardware.ev3.*;
 import lejos.hardware.*;
+import java.net.*;
+import java.io.*;
 
 /**
  * @author usamimasanori
@@ -28,6 +30,10 @@ public class LineTracer {
 		Key enter   = ((EV3)BrickFinder.getLocal()).getKey("Enter");
 		
 		light.setThreashold(0.3F);
+		
+		Server server = new Server();
+		Thread thread = new Thread(server);
+		thread.start();
 		
 		for(int i = 0; i < 1200; i++) {
 			Delay.msDelay(100);
