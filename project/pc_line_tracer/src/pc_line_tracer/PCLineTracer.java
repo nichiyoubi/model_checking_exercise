@@ -26,10 +26,14 @@ public class PCLineTracer {
 			PrintWriter out  = new PrintWriter(socket_.getOutputStream());
 			BufferedReader keyin = new BufferedReader(new InputStreamReader(System.in));
 			
+			System.out.println("Init");
+			
 			String input;
 			while((input = keyin.readLine()).length() > 0) {
 				out.println(input);
+				out.flush();
 				String line = in.readLine();
+				System.out.println("recv:" + line);
 				if (line != null) {
 					System.out.println(line);
 				}
