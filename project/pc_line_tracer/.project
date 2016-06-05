@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/line_tracer_net</name>
+			<type>2</type>
+			<location>/Users/usamimasanori/git/model_checking_exercise/project/line_tracer/src/line_tracer_net</location>
+		</link>
+	</linkedResources>
 </projectDescription>

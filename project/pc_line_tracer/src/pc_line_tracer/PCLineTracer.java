@@ -3,8 +3,14 @@
  */
 package pc_line_tracer;
 
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import net.arnx.jsonic.*;
+import line_tracer_net.*;
 
 /**
  * @author usamimasanori
@@ -16,7 +22,6 @@ public class PCLineTracer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Socket socket_  = null;
 		final int PORT_ = 12345;
 		
@@ -32,6 +37,10 @@ public class PCLineTracer {
 			while((input = keyin.readLine()).length() > 0) {
 				out.println(input);
 				out.flush();
+				Command cmd = command(input);
+				String cmdString = JSON.encode(cmd);
+				System.out.println(cmdString);
+				
 				String line = in.readLine();
 				System.out.println("recv:" + line);
 				if (line != null) {
@@ -50,4 +59,26 @@ public class PCLineTracer {
 		}
 	}
 
+	static private Command command(String input) {
+		Command cmd = new Command();
+
+		switch(input) {
+		case "START":
+			cmd.setCommand(Command.CommandType.START);
+			break;
+		case "STOP":
+			cmd.setCommand(Command.CommandType.STOP);
+			break;
+		case "LEFT":
+			cmd.setCommand(Command.CommandType.LEFT);
+			break;
+		case "RIGHT":
+			cmd.setCommand(Command.CommandType.RIGHT);
+			break;
+		default:
+			cmd.setCommand(Command.CommandType.ERROR);
+		}
+
+		return cmd;
+	}
 }
