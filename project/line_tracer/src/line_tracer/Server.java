@@ -6,8 +6,8 @@ package line_tracer;
 import java.io.*;
 import java.net.*;
 
+import lejos.hardware.lcd.LCD;
 import line_tracer_net.Command;
-import net.arnx.jsonic.*;
 
 /**
  * @author usamimasanori
@@ -17,14 +17,16 @@ public class Server implements Runnable {
 	ServerSocket serverSocket_ = null;
 	Socket connSocket_  = null;
 	final int PORT_ = 12345;
+	DirectionController controller_ = null;
 	
 	/*
 	 * 
 	 */
-	public Server() {
+	public Server(DirectionController cnt) {
 		try {
 			serverSocket_ = new ServerSocket(PORT_);
 			connSocket_ = serverSocket_.accept();
+			controller_ = cnt;
 		}
 		catch (IOException e1) {
 			try {
@@ -81,8 +83,7 @@ public class Server implements Runnable {
 			while((line = in.readLine()) != null) {
 				out.println(line);
 				out.flush();
-				Command cmd = JSON.decode(line, Command.class);
-				if (!execute(cmd)) {
+				if (!execute(Command.decode(line))) {
 					return false;
 				}
 			}
@@ -107,17 +108,24 @@ public class Server implements Runnable {
 	/*
 	 * 
 	 */
-	private boolean execute(Command cmd) {
-		switch(cmd.cmd_) {
+	private boolean execute(Command.CommandType cmd) {
+		switch(cmd) {
 		case START:
+			LCD.drawString("START", 0, 5);
 			break;
 		case STOP:
+			LCD.drawString("STOP", 0, 5);
 			break;
 		case LEFT:
+			LCD.drawString("LEFT", 0, 5);
+			controller_.setDirection(100);
 			break;
 		case RIGHT:
+			LCD.drawString("RIGHT", 0, 5);
+			controller_.setDirection(-100);
 			break;
 		default:
+			LCD.drawString("ERROR", 0, 5);
 			return false;
 		}
 		return true;
@@ -129,7 +137,7 @@ public class Server implements Runnable {
 	 */
 	@Override
 	public void run() {
-		echo();
-//		recv();
+//		echo();
+		recv();
 	}
 }

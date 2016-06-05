@@ -14,26 +14,26 @@ import lejos.hardware.*;
  *
  */
 public class LineTracer {
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		LCD.drawString("Line Tracer Test.", 0, 2);
-
-		Server server = new Server();
-		Thread thread = new Thread(server);
-		thread.start();
-
-		trace();
-	}
-	
-	public static void trace() {
 		LightSensorImpl light =  new LightSensorImpl(SensorPort.S2);
 		WheelImpl rightWheel = new WheelImpl(MotorPort.B);
 		WheelImpl leftWheel = new WheelImpl(MotorPort.C);
 		DirectionControllerImpl direction = new DirectionControllerImpl(rightWheel, leftWheel);
 		ControllerOnOff controller = new ControllerOnOff(light, direction);
+
+		LCD.drawString("Line Tracer Test.", 0, 2);
+
+		Server server = new Server(direction);
+		Thread thread = new Thread(server);
+		thread.start();
+
+		trace(light, controller, direction);
+	}
+	
+	public static void trace(LightSensor light, Controller controller, DirectionController direction) {
 		Key enter   = ((EV3)BrickFinder.getLocal()).getKey("Enter");
 		
 		light.setThreashold(0.3F);

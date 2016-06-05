@@ -52,4 +52,18 @@ public class Command {
 		}
 	}
 
+	static public Command.CommandType decode(String input) {
+		switch(input) {
+		case "START":
+			return Command.CommandType.START;
+		case "STOP":
+			return Command.CommandType.STOP;
+		case "LEFT":
+			return Command.CommandType.LEFT;
+		case "RIGHT":
+			return Command.CommandType.RIGHT;
+		default:
+			return Command.CommandType.ERROR;
+		}
+	}
 }
