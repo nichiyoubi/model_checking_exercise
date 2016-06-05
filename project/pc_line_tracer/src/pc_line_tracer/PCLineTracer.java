@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import net.arnx.jsonic.*;
 import line_tracer_net.*;
 
 /**
@@ -38,8 +37,6 @@ public class PCLineTracer {
 				out.println(input);
 				out.flush();
 				Command cmd = command(input);
-				String cmdString = JSON.encode(cmd);
-				System.out.println(cmdString);
 				
 				String line = in.readLine();
 				System.out.println("recv:" + line);
