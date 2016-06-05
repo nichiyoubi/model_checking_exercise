@@ -6,6 +6,9 @@ package line_tracer;
 import java.io.*;
 import java.net.*;
 
+import line_tracer_net.Command;
+import net.arnx.jsonic.*;
+
 /**
  * @author usamimasanori
  *
@@ -69,6 +72,57 @@ public class Server implements Runnable {
 		}
 	}
 	
+	private boolean recv() {
+	  	try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(connSocket_.getInputStream()));
+			PrintWriter out  = new PrintWriter(connSocket_.getOutputStream(), true);
+			String line;
+
+			while((line = in.readLine()) != null) {
+				out.println(line);
+				out.flush();
+				Command cmd = JSON.decode(line, Command.class);
+				if (!execute(cmd)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		catch(IOException e1) {
+			try {
+				if (connSocket_ != null) {
+					connSocket_.close();
+				}
+				if (serverSocket_ != null) {
+					serverSocket_.close();
+				}
+				return false;
+			}
+			catch(IOException e2) {
+				return false;
+			}
+		}
+	}
+	
+	/*
+	 * 
+	 */
+	private boolean execute(Command cmd) {
+		switch(cmd.cmd_) {
+		case START:
+			break;
+		case STOP:
+			break;
+		case LEFT:
+			break;
+		case RIGHT:
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
@@ -76,5 +130,6 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		echo();
+//		recv();
 	}
 }
