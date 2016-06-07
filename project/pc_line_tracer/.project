@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/line_tracer_net</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/line_tracer/src/line_tracer_net</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
