@@ -37,7 +37,7 @@ public class PCLineTracer {
 			while((input = keyin.readLine()).length() > 0) {
 				out.println(input);
 				out.flush();
-				Command cmd = command(input);
+//				Command cmd = command(input);
 				
 				String line = in.readLine();
 				System.out.println("recv:" + line);
