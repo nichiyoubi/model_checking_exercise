@@ -18,7 +18,7 @@
 		<link>
 			<name>src/line_tracer_net</name>
 			<type>2</type>
-			<location>/Users/usamimasanori/git/model_checking_exercise/project/line_tracer/src/line_tracer_net</location>
+			<locationURI>PARENT-1-PROJECT_LOC/line_tracer/src/line_tracer_net</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
