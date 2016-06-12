@@ -10,8 +10,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import line_tracer_net.*;
-
 /**
  * @author usamimasanori
  *
@@ -34,10 +32,11 @@ public class PCLineTracer {
 			System.out.println("Init");
 			
 			String input;
+			CommandCI ci = new CommandCI();
 			while((input = keyin.readLine()).length() > 0) {
-				out.println(input);
+				ci.help();
+				out.println(ci.parse(input));
 				out.flush();
-//				Command cmd = command(input);
 				
 				String line = in.readLine();
 				System.out.println("recv:" + line);
@@ -55,28 +54,5 @@ public class PCLineTracer {
 		catch(IOException e2) {
 			
 		}
-	}
-
-	static private Command command(String input) {
-		Command cmd = new Command();
-
-		switch(input) {
-		case "START":
-			cmd.setCommand(Command.CommandType.START);
-			break;
-		case "STOP":
-			cmd.setCommand(Command.CommandType.STOP);
-			break;
-		case "LEFT":
-			cmd.setCommand(Command.CommandType.LEFT);
-			break;
-		case "RIGHT":
-			cmd.setCommand(Command.CommandType.RIGHT);
-			break;
-		default:
-			cmd.setCommand(Command.CommandType.ERROR);
-		}
-
-		return cmd;
 	}
 }
