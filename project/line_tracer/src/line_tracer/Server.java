@@ -46,6 +46,7 @@ public class Server implements Runnable {
 	/*
 	 * 
 	 */
+/*
 	public boolean echo() {
 	  	try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(connSocket_.getInputStream()));
@@ -73,6 +74,7 @@ public class Server implements Runnable {
 			}
 		}
 	}
+*/
 	
 	private boolean recv() {
 	  	try {
@@ -83,9 +85,7 @@ public class Server implements Runnable {
 			while((line = in.readLine()) != null) {
 				out.println(line);
 				out.flush();
-				if (!execute(Command.decode(line))) {
-					return false;
-				}
+				execute(line);
 			}
 			return true;
 		}
@@ -108,27 +108,29 @@ public class Server implements Runnable {
 	/*
 	 * 
 	 */
-	private boolean execute(Command.CommandType cmd) {
+	private void execute(String cmd) {
 		switch(cmd) {
-		case START:
-			LCD.drawString("START", 0, 5);
+		case Command.START_:
+			LCD.drawString("START   ", 0, 5);
 			break;
-		case STOP:
-			LCD.drawString("STOP", 0, 5);
+		case Command.STOP_:
+			LCD.drawString("STOP    ", 0, 5);
 			break;
-		case LEFT:
-			LCD.drawString("LEFT", 0, 5);
+		case Command.LEFT_:
+			LCD.drawString("LEFT    ", 0, 5);
 			controller_.setDirection(100);
 			break;
-		case RIGHT:
-			LCD.drawString("RIGHT", 0, 5);
+		case Command.RIGHT_:
+			LCD.drawString("RIGHT   ", 0, 5);
 			controller_.setDirection(-100);
+			break;
+		case Command.STRAIGHT_:
+			LCD.drawString("STRAIGHT", 0, 5);
+			controller_.setDirection(0);
 			break;
 		default:
 			LCD.drawString("ERROR", 0, 5);
-			return false;
 		}
-		return true;
 	}
 	
 	/*
@@ -137,7 +139,6 @@ public class Server implements Runnable {
 	 */
 	@Override
 	public void run() {
-//		echo();
 		recv();
 	}
 }
