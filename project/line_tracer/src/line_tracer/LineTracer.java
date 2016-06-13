@@ -26,10 +26,17 @@ public class LineTracer {
 
 		LCD.drawString("Line Tracer Test.", 0, 2);
 
-		RemoteController remote = new RemoteController(direction);
-		Thread thread = new Thread(remote);
-		thread.start();
+		/// ネットワーク・リモート制御スレッドの起動
+		RemoteController remoteController = new RemoteController(direction);
+		Thread threadController = new Thread(remoteController);
+		threadController.start();
+		
+		///　ネットワーク・データ送信スレッドの起動
+		RemoteDataProvider dataProvider = new RemoteDataProvider(light, rightWheel, leftWheel);
+		Thread threadProvider = new Thread(dataProvider);
+		threadProvider.start();
 
+		/// ライントレーサの起動
 		trace(light, controller, direction);
 	}
 	
