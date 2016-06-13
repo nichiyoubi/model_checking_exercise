@@ -35,9 +35,7 @@ public class PCLineTracer {
 			CommandCI ci = new CommandCI();
 			ci.help();
 			while((input = keyin.readLine()).length() > 0) {
-				String cmd = ci.parse(input);
-				System.out.println(cmd);
-				out.println(cmd);
+				out.println(ci.parse(input));
 				out.flush();
 				
 				String line = in.readLine();
