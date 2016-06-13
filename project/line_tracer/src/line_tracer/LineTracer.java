@@ -26,8 +26,8 @@ public class LineTracer {
 
 		LCD.drawString("Line Tracer Test.", 0, 2);
 
-		Server server = new Server(direction);
-		Thread thread = new Thread(server);
+		RemoteController remote = new RemoteController(direction);
+		Thread thread = new Thread(remote);
 		thread.start();
 
 		trace(light, controller, direction);

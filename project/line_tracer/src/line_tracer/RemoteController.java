@@ -13,7 +13,7 @@ import line_tracer_net.Command;
  * @author usamimasanori
  *
  */
-public class Server implements Runnable {
+public class RemoteController implements Runnable {
 	ServerSocket serverSocket_ = null;
 	Socket connSocket_  = null;
 	final int PORT_ = 12345;
@@ -22,7 +22,7 @@ public class Server implements Runnable {
 	/*
 	 * 
 	 */
-	public Server(DirectionController cnt) {
+	public RemoteController(DirectionController cnt) {
 		try {
 			serverSocket_ = new ServerSocket(PORT_);
 			connSocket_ = serverSocket_.accept();
@@ -112,9 +112,11 @@ public class Server implements Runnable {
 		switch(cmd) {
 		case Command.START_:
 			LCD.drawString("START   ", 0, 5);
+			controller_.setDirection(0);
 			break;
 		case Command.STOP_:
 			LCD.drawString("STOP    ", 0, 5);
+			controller_.stop();
 			break;
 		case Command.LEFT_:
 			LCD.drawString("LEFT    ", 0, 5);
