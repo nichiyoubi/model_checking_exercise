@@ -15,7 +15,7 @@ public class CommandCI {
 	
 	public void help() {
 		System.out.println("Command:");
-		System.out.println("\t 1:STRAIGHT 2:RIGHT 3:LEFT OTHERS:ERROR");
+		System.out.println("\t 1:STRAIGHT 2:RIGHT 3:LEFT 4:STOP OTHERS:ERROR");
 	}
 	
 	public String parse(String input) {
@@ -28,6 +28,8 @@ public class CommandCI {
 				return Command.RIGHT_;
 			case 3:
 				return Command.LEFT_;
+			case 4:
+				return Command.STOP_;
 			default:
 				return Command.ERROR_;
 			}

@@ -33,9 +33,11 @@ public class PCLineTracer {
 			
 			String input;
 			CommandCI ci = new CommandCI();
+			ci.help();
 			while((input = keyin.readLine()).length() > 0) {
-				ci.help();
-				out.println(ci.parse(input));
+				String cmd = ci.parse(input);
+				System.out.println(cmd);
+				out.println(cmd);
 				out.flush();
 				
 				String line = in.readLine();
@@ -46,6 +48,7 @@ public class PCLineTracer {
 				else {
 					break;
 				}
+				ci.help();
 			}
 		}
 		catch(UnknownHostException e1) {
