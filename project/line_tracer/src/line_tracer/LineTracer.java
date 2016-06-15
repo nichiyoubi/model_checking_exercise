@@ -24,8 +24,6 @@ public class LineTracer {
 		DirectionControllerImpl direction = new DirectionControllerImpl(rightWheel, leftWheel);
 		ControllerOnOff controller = new ControllerOnOff(light, direction);
 
-		LCD.drawString("Line Tracer Test.", 0, 2);
-
 		/// ネットワーク・リモート制御スレッドの起動
 		RemoteController remoteController = new RemoteController(direction);
 		Thread threadController = new Thread(remoteController);
@@ -43,11 +41,13 @@ public class LineTracer {
 	public static void trace(LightSensor light, Controller controller, DirectionController direction) {
 		Key enter   = ((EV3)BrickFinder.getLocal()).getKey("Enter");
 		
-		light.setThreashold(0.3F);
+		light.setThreashold(0.15F);
 		
+		LCD.drawString("Push Start.", 0, 2);
 		while(enter.isUp()) {
 			Delay.msDelay(100);
 		}
+		LCD.drawString("           ", 0, 2);
 		
 		for(int i = 0; i < 1200; i++) {
 			Delay.msDelay(100);
