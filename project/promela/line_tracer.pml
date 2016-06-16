@@ -69,14 +69,12 @@ inline go_right() {
 	This process control motors.
  */
 proctype line_tracer() {
-	/*
-	*/
+
 	do
 	::light == 100 -> go_straight();
 	::light > 100  -> go_left();
 	::light < 100  -> go_right();
 	od;
-	skip;
 }
 
 proctype line_tracer_network_controller() {
@@ -110,7 +108,20 @@ proctype model_course() {
 	 od;
 }
 
+/* ostable model */
+proctype model_obstacle() {
+	 obstacle = 0;
+
+	 do
+	 ::skip -> obstacle = 50;
+	 ::obstacle > 1 -> obstacle = obstacle - 1;
+	 ::skip -> obstacle = obstacle;
+	 od;
+}
+
 /** initialize **/
 init {
      run model_course();
+     run model_obstacle();
+     run line_tracer();
 }
