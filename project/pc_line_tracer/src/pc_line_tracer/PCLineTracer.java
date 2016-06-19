@@ -29,7 +29,7 @@ public class PCLineTracer {
 			PrintWriter out  = new PrintWriter(socket_.getOutputStream());
 			BufferedReader keyin = new BufferedReader(new InputStreamReader(System.in));
 			
-			System.out.println("Init");
+			recv();
 			
 			String input;
 			CommandCI ci = new CommandCI();
@@ -55,5 +55,13 @@ public class PCLineTracer {
 		catch(IOException e2) {
 			
 		}
+	}
+	
+	/*
+	 * 
+	 */
+	public static void recv() {
+		Thread thread = new Thread(new DataReceiver());
+		thread.start();
 	}
 }
