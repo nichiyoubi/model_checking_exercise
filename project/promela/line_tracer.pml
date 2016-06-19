@@ -12,6 +12,12 @@ int obstacle;		/* distance from obstacle(cm) */
 mtype mutex_l = UNLOCKED; /* mutex for motor_l */
 mtype mutex_r = UNLOCKED; /* mutex for motor_r */
 
+#define LIGHT_TARGET	100	/* target value of course edget */
+#define LIGHT_WHITE	150	/* sensor value of white color */
+#define	LIGHT_BLACK	50	/* sensor value of black color */
+
+#define MIN_DISTANCE	10	/* minimum distance to obstacles */
+
 /**
  *	lock a mutex
  */
@@ -63,65 +69,88 @@ inline go_right() {
 	unlock(mutex_r);
 }
 
+/** motor stop function **/
+inline stop() {
+	lock(mutex_l);
+	lock(mutex_r);
+
+	motor_r = 0;
+	motor_l = 0;
+
+	unlock(mutex_r);
+	unlock(mutex_l);
+}
 
 /*
-	The main process of line tracer robot.
-	This process control motors.
+ *	line trace process.
  */
 proctype line_tracer() {
 
 	do
-	::light == 100 -> go_straight();
-	::light > 100  -> go_left();
-	::light < 100  -> go_right();
+	::light == LIGHT_TARGET -> go_straight();
+	::light >  LIGHT_TARGET -> go_left();
+	::light <  LIGHT_TARGET -> go_right();
 	od;
 }
 
+/*
+ *
+ */
 proctype line_tracer_network_controller() {
-	 skip;
+	skip;
 }
 
+/*
+ *
+ */
 proctype line_tracer_obstacle_detector() {
-	 skip;
+	do
+	::obstacle < MIN_DISTANCE -> stop();
+	::obstacle >= MIN_DISTANCE -> skip;
+	od;
 }
 
+/*
+ *
+ */
 proctype line_tracer_data_provider() {
-	 skip;
+	skip;
 }
 
 
+/*
+ *
+ */
 proctype pc_remote_controller() {
-	 skip;
+	skip;
 }
 
 /** environment model **/
 /* cource model */
 proctype model_course() {
-	 light = 100;	/* target value */
-
-	 printf("model cource");
-
 	 do
-	 ::skip -> light = 50;	/* black */
-	 ::skip -> light = 100;	/* on the edge */
-	 ::skip -> light = 150;	/* white */
+	 ::skip -> light = LIGHT_BLACK;		/* black */
+	 ::skip -> light = LIGHT_TARGET;	/* on the edge */
+	 ::skip -> light = LIGHT_WHITE;		/* white */
 	 od;
 }
 
 /* ostable model */
 proctype model_obstacle() {
-	 obstacle = 0;
+	obstacle = 0;
 
-	 do
-	 ::skip -> obstacle = 50;
-	 ::obstacle > 1 -> obstacle = obstacle - 1;
-	 ::skip -> obstacle = obstacle;
-	 od;
+	do
+	::skip -> obstacle = 50;
+	::obstacle > 1 -> obstacle = obstacle - 1;
+	::skip -> obstacle = obstacle;
+	::assert((obstacle <= 50) && (obstacle >= MIN_DISTANCE));
+	od;
 }
 
 /** initialize **/
 init {
-     run model_course();
-     run model_obstacle();
-     run line_tracer();
+	run model_course();
+	run model_obstacle();
+	run line_tracer();
+	run line_tracer_obstacle_detector();
 }
