@@ -12,11 +12,14 @@ mtype = {STRAIGHT, LEFT, RIGHT, STOP};		/* remote command */
 mtype = {STS_TRACE, STS_SAFETY, STS_REMOTE};	/* robot status */
 mtype = {LOCKED, UNLOCKED};			/* mutex status */
 
-int light = LIGHT_TARGET;    	/* light sensor value */
-int motor_l, motor_r;	/* motor power */
-int obstacle;		/* distance from obstacle(cm) */
 mtype mutex_l = UNLOCKED; /* mutex for motor_l */
 mtype mutex_r = UNLOCKED; /* mutex for motor_r */
+
+int light = LIGHT_TARGET;    	/* light sensor value */
+int motor_l, motor_r;		/* motor power */
+int obstacle = 0;		/* distance from obstacle(cm) */
+
+chan ch_wifi = [2] of { mtype };
 
 /**
  *	lock a mutex
@@ -95,7 +98,13 @@ progress_trace:
  *
  */
 proctype line_tracer_network_controller() {
-	skip;
+progress_controller:
+	if
+	::ch_wifi ? STRAIGHT -> go_straight();
+	::ch_wifi ? LEFT -> go_left();
+	::ch_wifi ? RIGHT -> go_right();
+	fi;
+	goto progress_controller;
 }
 
 /*
@@ -115,40 +124,35 @@ progress_detector:
 /*
  *
  */
-proctype line_tracer_data_provider() {
-	skip;
-}
-
-
-/*
- *
- */
 proctype pc_remote_controller() {
-	skip;
+progress_pc_controller:
+	if
+	::skip -> ch_wifi ! STRAIGHT;
+	::skip -> ch_wifi ! LEFT;
+	::skip -> ch_wifi ! RIGHT;
+	fi;
+	goto progress_pc_controller;
 }
 
 /** environment model **/
 /* cource model */
 proctype model_course() {
-	 do
-	 ::light = LIGHT_BLACK;		/* black */
-	 ::light = LIGHT_TARGET;	/* on the edge */
-	 ::light = LIGHT_WHITE;		/* white */
-	 ::else -> skip;
-	 od;
+	do
+	::skip -> light = LIGHT_BLACK;		/* black */
+	::skip -> light = LIGHT_TARGET;		/* on the edge */
+	::skip -> light = LIGHT_WHITE;		/* white */
+	::skip -> light = light;
+	od;
 }
 
 /* ostable model */
 proctype model_obstacle() {
-	obstacle = 0;
-
 	do
-	::obstacle = 50;
 	::obstacle > 1 -> obstacle = obstacle - 1;
-	::obstacle = obstacle;
+	::skip -> obstacle = 50;
+	::skip -> obstacle = obstacle;
 	::else -> assert((obstacle <= 50) && (obstacle >= MIN_DISTANCE));
 	od;
-
 }
 
 /** initialize **/
@@ -158,6 +162,7 @@ init {
 	run line_tracer();
 	run line_tracer_obstacle_detector();
 }
+
 
 ltl spec1 { []<> line_tracer@progress_trace }
 ltl spec2 { []<> line_tracer_obstacle_detector@progress_detector }
