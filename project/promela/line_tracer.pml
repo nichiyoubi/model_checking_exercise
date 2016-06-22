@@ -39,6 +39,7 @@ inline go_straight() {
 	lock(mutex_r);
 	lock(mutex_l);
 
+cmd_straight:
 	motor_r = 100;
 	motor_l = 100;
 
@@ -50,6 +51,7 @@ inline go_left() {
 	lock(mutex_r);
 	lock(mutex_l);
 
+cmd_left:
 	motor_r = 100;
 	motor_l = 0;
 
@@ -61,6 +63,7 @@ inline go_right() {
 	lock(mutex_r);
 	lock(mutex_l);
 
+cmd_right:
 	motor_r = 0;
 	motor_l = 100;
 
@@ -151,7 +154,7 @@ proctype model_obstacle() {
 	::obstacle > 1 -> obstacle = obstacle - 1;
 	::skip -> obstacle = 50;
 	::skip -> obstacle = obstacle;
-	::else -> assert((obstacle <= 50) && (obstacle >= MIN_DISTANCE));
+	::skip -> assert((obstacle <= 50) && (obstacle >= MIN_DISTANCE));
 	od;
 }
 
@@ -159,10 +162,30 @@ proctype model_obstacle() {
 init {
 	run model_obstacle();
 	run model_course();
+	run pc_remote_controller();
 	run line_tracer();
 	run line_tracer_obstacle_detector();
+	run line_tracer_network_controller();
 }
 
 
 ltl spec1 { []<> line_tracer@progress_trace }
 ltl spec2 { []<> line_tracer_obstacle_detector@progress_detector }
+ltl spec3 { []<> line_tracer_network_controller@progress_controller }
+ltl spec4 { [] ((light == LIGHT_WHITE) -> line_tracer@cmd_left) }
+ltl spec5 { [] ((light == LIGHT_BLACK) -> line_tracer@cmd_right) }
+ltl spec6 { [] ((light == LIGHT_TARGET) -> line_tracer@cmd_straight) }
+
+/*******************************************************************
+ test case
+	spec1	line_tracer() process can never deadlock.
+	spec2	line_tracer_obstacle_detector() process can never deadlock.
+	spec3	line_tracer_network_controller() process can never deadlock.
+	spec4	if the light sensor detects the course off, 
+		the robots must turn left.
+	spec5	if the light sensor detects the course on, 
+		the robots must turn right.
+	spec6	if the light sensor detects the course edge, 
+		the robots must go straight.
+	
+ *******************************************************************/
