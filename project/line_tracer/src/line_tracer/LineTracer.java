@@ -11,18 +11,19 @@ import lejos.hardware.*;
 
 /**
  * @author usamimasanori
- *
+ * 2つのセンサーに対応
  */
 public class LineTracer {
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		LightSensorImpl light =  new LightSensorImpl(SensorPort.S2);
+		LightSensorImpl light_left =  new LightSensorImpl(SensorPort.S3);
+		LightSensorImpl light_right =  new LightSensorImpl(SensorPort.S1);
 		WheelImpl rightWheel = new WheelImpl(MotorPort.B);
 		WheelImpl leftWheel = new WheelImpl(MotorPort.C);
 		DirectionControllerImpl direction = new DirectionControllerImpl(rightWheel, leftWheel);
-		ControllerOnOff controller = new ControllerOnOff(light, direction);
+		ControllerOnOff controller = new ControllerOnOff(light_left, direction);
 
 		/// ネットワーク・リモート制御スレッドの起動
 		RemoteController remoteController = new RemoteController(direction);
@@ -30,18 +31,18 @@ public class LineTracer {
 		threadController.start();
 		
 		///　ネットワーク・データ送信スレッドの起動
-		RemoteDataProvider dataProvider = new RemoteDataProvider(light, rightWheel, leftWheel);
+		RemoteDataProvider dataProvider = new RemoteDataProvider(light_left, light_right,rightWheel, leftWheel);
 		Thread threadProvider = new Thread(dataProvider);
 		threadProvider.start();
 
 		/// ライントレーサの起動
-		trace(light, controller, direction);
+		trace(light_left, controller, direction);
 	}
 	
 	public static void trace(LightSensor light, Controller controller, DirectionController direction) {
 		Key enter   = ((EV3)BrickFinder.getLocal()).getKey("Enter");
 		
-		light.setThreashold(0.15F);
+		light.setThreashold(0.20F);
 		
 		LCD.drawString("Push Start.", 0, 2);
 		while(enter.isUp()) {

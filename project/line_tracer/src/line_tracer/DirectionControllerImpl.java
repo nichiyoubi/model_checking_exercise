@@ -22,7 +22,8 @@ public class DirectionControllerImpl implements DirectionController {
 		rightWheel_ = right;
 		leftWheel_ = left;
 		direction_ = 0;
-		max_speed_ = rightWheel_.getMaximumSpeed();
+		max_speed_ = (int) (rightWheel_.getMaximumSpeed() * 0.3);
+//		max_speed_ = 20;
 	}
 	
 	/**

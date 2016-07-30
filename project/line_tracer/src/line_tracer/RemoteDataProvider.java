@@ -15,9 +15,10 @@ import lejos.utility.Delay;
  */
 public class RemoteDataProvider implements Runnable {
 	private Socket connSocket_ = null;
-	private final int PORT_ = 12346;
-	private final String ADDRESS_ = "192.168.11.3";
-	private LightSensor light_ = null;
+	private final int PORT_ = 12345;
+	private final String ADDRESS_ = "192.168.11.2";
+	private LightSensor leftLight_ = null;
+	private LightSensor rightLight_ = null;
 	private Wheel rightWheel_ = null;
 	private Wheel leftWheel_ = null;
 	
@@ -27,8 +28,9 @@ public class RemoteDataProvider implements Runnable {
 	 * @param right
 	 * @param left
 	 */
-	public RemoteDataProvider(LightSensor light, Wheel right, Wheel left) {
-		light_ = light;
+	public RemoteDataProvider(LightSensor light_left, LightSensor light_right, Wheel right, Wheel left) {
+		leftLight_ = light_left;
+		rightLight_ = light_right;
 		rightWheel_ = right;
 		leftWheel_ = left;
 	}
@@ -71,14 +73,14 @@ public class RemoteDataProvider implements Runnable {
 		try {
 			PrintWriter out  = new PrintWriter(connSocket_.getOutputStream());
 			while(true) {
-				float light = light_.getValue();
-				int right = rightWheel_.getSpeed();
-				int left = leftWheel_.getSpeed();
+				float l_light = leftLight_.getValue();
+				float r_light = rightLight_.getValue();
+//				int right = rightWheel_.getSpeed();
+//				int left = leftWheel_.getSpeed();
 				
 				/// データを整形する
-				String output = "light, " + String.valueOf(light) + ", " +
-								"motor(right), " + String.valueOf(right) + ", " +
-								"motor(left), " + String.valueOf(left);
+				String output = "{ sensor_l: " + String.valueOf(l_light) + ", " +
+								"sensor_r: " + String.valueOf(r_light) + "}";
 				///　データを送信する
 				out.println(output);
 				out.flush();				
