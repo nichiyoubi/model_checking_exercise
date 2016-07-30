@@ -11,7 +11,7 @@ import lejos.hardware.*;
 
 /**
  * @author usamimasanori
- * 2つのセンサーに対応
+ * 2つのセンサーに対応:
  */
 public class LineTracer {
 	/**
