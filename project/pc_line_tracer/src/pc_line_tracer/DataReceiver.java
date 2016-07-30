@@ -20,7 +20,7 @@ import java.net.Socket;
 public class DataReceiver implements Runnable {
 	private ServerSocket serverSocket_ = null;
 	private Socket connSocket_ = null;
-	private final int PORT_ = 12346;
+	private final int PORT_ = 12345;
 	private File file_ = null;
 
 	/*

@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
 public class PCLineTracer {
 
 	/**
-	 * @param args
+	 * @param args addrres of robot
 	 */
 	public static void main(String[] args) {
 		Socket socket_  = null;
