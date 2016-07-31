@@ -21,30 +21,37 @@ public class DataReceiver implements Runnable {
 	private ServerSocket serverSocket_ = null;
 	private Socket connSocket_ = null;
 	private final int PORT_ = 12345;
-	private File file_ = null;
+	private LogWriter log_ = null;
 
 	/*
 	 * 
 	 */
-	public DataReceiver() {
+	public DataReceiver(LogWriter log) {
 		try {
+			System.out.println("try to wait for clinent at " + PORT_ + ".");
 			serverSocket_ = new ServerSocket(PORT_);
 			connSocket_ = serverSocket_.accept();
-			file_ = new File("./data.csv");
+			System.out.println("client connected");
+//			log_ = new LogWriter(new File("./data.csv"));
+			log_ = log;
 		}
 		catch (IOException e1) {
+			System.out.println(e1);
 			try {
 				if (connSocket_ != null) {
 					connSocket_.close();
 				}
-				if (serverSocket_ == null) {
+				if (serverSocket_ != null) {
 					serverSocket_.close();
+				}
+				if (log_ != null) {
+					log_.close();
 				}
 			}
 			catch (IOException e2) {
 				return;
 			}
-		}
+		}	
 	}
 	
 	/* (non-Javadoc)
@@ -52,19 +59,21 @@ public class DataReceiver implements Runnable {
 	 */
 	@Override
 	public void run() {
+
+		
 	  	try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(connSocket_.getInputStream()));
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file_)));
+//			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file_)));
 			String line;
 
 			System.out.println("DataReceiver Start.");
 			while((line = in.readLine()) != null) {
 				System.out.println(line);
-				out.println(line);
-				out.flush();
+				log_.write(line);
+//				out.flush();
 			}
 			
-			out.close();
+			log_.close();
 			connSocket_.close();
 			serverSocket_.close();
 		}

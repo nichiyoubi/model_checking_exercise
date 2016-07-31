@@ -11,7 +11,7 @@ public interface DirectionController {
 	/**
 	 * 操作対象の車輪を設定する
 	 * @param right 右の車輪
-	 * @param left 左の写真
+	 * @param left 左の車輪
 	 */
 	void setWheel(Wheel right, Wheel left);
 	

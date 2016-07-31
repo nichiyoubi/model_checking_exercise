@@ -16,7 +16,7 @@ import lejos.utility.Delay;
 public class RemoteDataProvider implements Runnable {
 	private Socket connSocket_ = null;
 	private final int PORT_ = 12345;
-	private final String ADDRESS_ = "192.168.11.2";
+	private final String ADDRESS_ = "192.168.11.8";
 	private LightSensor leftLight_ = null;
 	private LightSensor rightLight_ = null;
 	private Wheel rightWheel_ = null;

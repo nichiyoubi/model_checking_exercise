@@ -43,15 +43,7 @@ public class ControllerOnOff implements Controller {
 	@Override
 	public boolean execute() {
 		float value = light_.getValue();
-		if (light_.getThreashold() > value) {
-			direction_.setDirection(+100);
-		}
-		else if (light_.getThreashold() < value) {
-			direction_.setDirection(-100);
-		}
-		else {
-			direction_.setDirection(0);
-		}
+		direction_.setDirection(0);
 		return true;
 	}
 

@@ -136,11 +136,11 @@ public class RemoteController implements Runnable {
 			break;
 		case Command.LEFT_:
 			LCD.drawString("LEFT    ", 0, 4);
-			controller_.setDirection(100);
+			controller_.setDirection(30);
 			break;
 		case Command.RIGHT_:
 			LCD.drawString("RIGHT   ", 0, 4);
-			controller_.setDirection(-100);
+			controller_.setDirection(-30);
 			break;
 		case Command.STRAIGHT_:
 			LCD.drawString("STRAIGHT", 0, 4);

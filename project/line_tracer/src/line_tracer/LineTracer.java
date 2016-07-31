@@ -22,7 +22,7 @@ public class LineTracer {
 		LightSensorImpl light_right =  new LightSensorImpl(SensorPort.S1);
 		WheelImpl rightWheel = new WheelImpl(MotorPort.B);
 		WheelImpl leftWheel = new WheelImpl(MotorPort.C);
-		DirectionControllerImpl direction = new DirectionControllerImpl(rightWheel, leftWheel);
+		DirectionControllerImpl direction = new DirectionControllerImpl(rightWheel, leftWheel, 30);
 		ControllerOnOff controller = new ControllerOnOff(light_left, direction);
 
 		/// ネットワーク・リモート制御スレッドの起動
@@ -49,10 +49,10 @@ public class LineTracer {
 			Delay.msDelay(100);
 		}
 		LCD.drawString("           ", 0, 2);
+		controller.execute();
 		
 		for(int i = 0; i < 1200; i++) {
 			Delay.msDelay(100);
-			controller.execute();
 			Float val = light.getValue();
 			LCD.drawString("light=" + String.valueOf(val), 0, 3);
 			if (enter.isDown()) {
