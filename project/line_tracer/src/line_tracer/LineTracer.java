@@ -18,11 +18,13 @@ public class LineTracer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		LightSensorImpl light =  new LightSensorImpl(SensorPort.S2);
+		LightSensorImpl light =  new LightSensorImpl(SensorPort.S3);
 		WheelImpl rightWheel = new WheelImpl(MotorPort.B);
 		WheelImpl leftWheel = new WheelImpl(MotorPort.C);
 		DirectionControllerImpl direction = new DirectionControllerImpl(rightWheel, leftWheel);
 		ControllerOnOff controller = new ControllerOnOff(light, direction);
+		UltrasonicSensorImpl sonic = new UltrasonicSensorImpl(SensorPort.S4, 0.5F);
+		TouchSensorImpl touch = new TouchSensorImpl(SensorPort.S1);
 
 		/// ネットワーク・リモート制御スレッドの起動
 		RemoteController remoteController = new RemoteController(direction);
@@ -33,6 +35,10 @@ public class LineTracer {
 		RemoteDataProvider dataProvider = new RemoteDataProvider(light, rightWheel, leftWheel);
 		Thread threadProvider = new Thread(dataProvider);
 		threadProvider.start();
+		
+		RemoteObstacleDetector detector = new RemoteObstacleDetector(sonic, touch);
+		Thread threadDetector = new Thread(detector);
+		threadDetector.start();
 
 		/// ライントレーサの起動
 		trace(light, controller, direction);
